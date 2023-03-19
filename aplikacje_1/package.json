@@ -1,0 +1,15 @@
+{
+  "name": "aplikacje_1",
+  "version": "1.0.0",
+  "description": "Moja pierwsza aplikacja Node.js / Express.js",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon -L app.js"
+  },
+  "keywords": [],
+  "author": "Przemek Pawlik",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
