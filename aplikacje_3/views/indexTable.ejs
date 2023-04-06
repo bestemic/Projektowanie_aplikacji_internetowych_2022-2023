@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= data.title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <style>
+        table {
+            border: 1px solid black;
+        }
+
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1><%= data.title %> from <%= data.exchangeRateTable.date %></h1>
+
+    <table>
+        <tbody>
+        <% data.exchangeRateTable.rows.forEach((row) => { %>
+            <tr>
+                <td><%= row.currency %></td>
+                <td><%= row.code %></td>
+                <td><%= row.mid %></td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+
+    <a href="/">Back</a>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= data.title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+    <h1><%= data.title %></h1>
+
+    <form method="post">
+        <label>Provide currency code: </label>
+        <input name="currencyCode">
+        <input type="submit">
+    </form>
+
+    <% if (data.currencyInfo) { %>
+        <% if (data.currencyInfo.error) { %>
+            <h3><%= data.currencyInfo.error %></h3>
+        <% } else { %>
+            <h3>Exchange rate of <%= data.currencyInfo.currency %> (<%= data.currencyInfo.code %>) is <%= data.currencyInfo.exchangeRate %></h3>
+        <% } %>
+    <% } %>
+
+    <a href="/">Back</a>
+</body>
+</html>
