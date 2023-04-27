@@ -1,0 +1,48 @@
+<%- include('inc/header'); -%>
+
+<div class="container">
+    <h2 class="text-center mt-5 mb-3">Stwórz przetarg</h2>
+    <div class="card">
+        <div class="card-body">
+            <form method="post" action="/auctions/new">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Przedmiot przetargu</label>
+                    <input type="text" class="form-control" id="name" name="name"
+                           placeholder="Wprowadź nazwę przetargu">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="purchaser">Instytucja zamawiająca</label>
+                    <input type="text" class="form-control" id="purchaser" name="purchaser"
+                           placeholder="Wprowadź instytucję zamawiającą">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Opis</label>
+                    <textarea class="form-control" id="description" name="description" rows="2"
+                              placeholder="Wprowadź opis"
+                    ></textarea>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label" for="start">Data i godzina rozpoczęcia</label>
+                            <input type="datetime-local" class="form-control" id="start" name="start">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label" for="end">Data i godzina zakończenia</label>
+                            <input type="datetime-local" class="form-control" id="end" name="end">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="cost">Maksymalny koszt realizacji przetargu</label>
+                    <input type="number" class="form-control" id="cost" name="cost" placeholder="Wprowadź cenę">
+                </div>
+                <button type="submit" class="btn btn-outline-primary mb-3">Stwórz</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('inc/footer'); -%>
