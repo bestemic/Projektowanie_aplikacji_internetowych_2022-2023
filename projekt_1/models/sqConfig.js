@@ -21,7 +21,7 @@ db.sequelize = sequelize;
 
 db.auction = require("./auction.js")(sequelize, Sequelize);
 
-db.sequelize.sync({force: true})
+db.sequelize.sync({force: false})
     .then(() => {
         console.log("Synced db.");
     })
