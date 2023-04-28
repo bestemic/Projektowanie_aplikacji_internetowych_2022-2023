@@ -5,10 +5,6 @@ const newAuctionsController = require('../controllers/newAuctionsController')
 
 router.get('/', newAuctionsController.getIndex);
 
-router.post('/', (req, res)=>{
-    console.log("here");
-    console.log(req.body);
-    // newAuctionsController.getIndex(req, res);
-});
+router.post('/', newAuctionsController.postAuction);
 
 module.exports = router;
