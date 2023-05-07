@@ -1,3 +1,13 @@
 body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
+table a {
+    text-decoration: none;
+    color: black;
+}
+
+table a:hover {
+    text-decoration: underline;
+    color: black;
+}
