@@ -8,10 +8,8 @@ const create = (auction) => {
             return data.dataValues;
         })
         .catch(err => {
-            return {
-                error: true,
-                message: err.message
-            };
+            console.error('Failed to create auction ' + err.message);
+            return {};
         });
 };
 

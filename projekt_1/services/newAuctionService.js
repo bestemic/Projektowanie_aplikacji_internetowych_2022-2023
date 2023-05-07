@@ -14,9 +14,9 @@ const createAuction = async (auction) => {
 
     auction = await daoAuction.create(auction);
 
-    if (auction.error) {
+    if (Object.keys(auction).length === 0) {
         return {
-            error: 'Wystąpił błąd podczas zapisywania przetargu.'
+            error: 'Wystąpił błąd podczas dodawania przetargu.'
         };
     } else {
         return {
