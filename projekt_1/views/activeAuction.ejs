@@ -1,0 +1,31 @@
+<%- include('inc/header'); -%>
+
+<div class="container">
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Szczegóły przetargu</h2>
+        <div class="card">
+            <div class="card-header text-center">
+                <h3 class="card-title"><%= auction.name %></h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <b class="text-muted">Instytucja zamawiająca:</b>
+                        <p><%= auction.purchaser %></p>
+                        <b class="text-muted">Opis:</b>
+                        <p><%= auction.description %></p>
+                        <b class="text-muted">Data rozpoczęcia:</b>
+                        <p><%= new Date(auction.start).toLocaleString() %></p>
+                        <b class="text-muted">Data zakończenia:</b>
+                        <p><%= new Date(auction.end).toLocaleString() %></p>
+                    </div>
+                    <div class="col">
+                        <!-- TODO form and styles for data -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('inc/footer'); -%>

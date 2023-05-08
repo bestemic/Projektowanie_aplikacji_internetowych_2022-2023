@@ -3,7 +3,8 @@ const {Op} = require("sequelize");
 const Auction = db.auction;
 
 const create = (auction) => {
-    return Auction.create(auction)
+    return Auction
+        .create(auction)
         .then(data => {
             return data.dataValues;
         })
@@ -15,22 +16,14 @@ const create = (auction) => {
 
 const findAllActive = () => {
     const now = new Date();
-    return Auction.findAll({
-        where: {
-            [Op.and]: [
-                {
-                    start: {
-                        [Op.lte]: now
-                    }
-                },
-                {
-                    end: {
-                        [Op.gt]: now
-                    }
+    return Auction
+        .findAll({
+            where: {
+                end: {
+                    [Op.gt]: now
                 }
-            ]
-        }
-    })
+            }
+        })
         .then(data => {
             return data.map((auction) => auction.dataValues);
         })
@@ -40,7 +33,28 @@ const findAllActive = () => {
         });
 };
 
+const findActiveAuctionById = async (id) => {
+    const now = new Date();
+    return Auction
+        .findOne({
+            where: {
+                id: id,
+                end: {
+                    [Op.gt]: now
+                }
+            }
+        })
+        .then(data => {
+            return data ? data.dataValues : {};
+        })
+        .catch(err => {
+            console.error('Failed to get active auction by id' + err.message);
+            return {};
+        });
+};
+
 module.exports = {
     create,
-    findAllActive
+    findAllActive,
+    findActiveAuctionById
 }

@@ -1,12 +1,20 @@
 const activeAuctionService = require('../services/activeAuctionService')
 
-const getIndex = async (req, res) => {
+const getAuctions = async (req, res) => {
     const allActiveAuctions = await activeAuctionService.getAllActive();
-    res.render('activeAuctionIndex', {
-        data: allActiveAuctions
+    res.render('activeAuctions', {
+        auctions: allActiveAuctions
+    });
+};
+
+const getAuction = async (req, res) => {
+    const auction = await activeAuctionService.getActiveAuction(req.params.id);
+    res.render('activeAuction', {
+        auction: auction
     });
 };
 
 module.exports = {
-    getIndex
+    getAuctions,
+    getAuction
 }

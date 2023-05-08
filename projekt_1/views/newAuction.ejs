@@ -3,18 +3,17 @@
 <div class="container">
     <h2 class="text-center mt-5 mb-3">Stwórz przetarg</h2>
 
-    <% if(data.success){ %>
+    <% if(info.success){ %>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <!-- TODO -->
-            <a href="/" class="alert-link">Przetarg</a> został pomyślnie utworzony.
+            <a href="/auctions/active/<%= info.success %>" class="alert-link">Przetarg</a> został pomyślnie utworzony.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <% } %>
 
-    <% if(data.error){ %>
+    <% if(info.error){ %>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             Przetarg nie został utworzony.<br>
-            <%= data.error %>
+            <%= info.error %>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <% } %>

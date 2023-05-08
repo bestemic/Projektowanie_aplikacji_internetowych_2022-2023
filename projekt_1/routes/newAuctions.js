@@ -3,7 +3,7 @@ const router = express.Router();
 
 const newAuctionsController = require('../controllers/newAuctionsController')
 
-router.get('/', newAuctionsController.getIndex);
+router.get('/', newAuctionsController.getAuction);
 
 router.post('/', newAuctionsController.postAuction);
 

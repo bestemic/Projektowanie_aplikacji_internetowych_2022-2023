@@ -3,6 +3,8 @@ const router = express.Router();
 
 const activeAuctionsController = require('../controllers/activeAuctionsController')
 
-router.get('/', activeAuctionsController.getIndex);
+router.get('/', activeAuctionsController.getAuctions);
+
+router.get('/:id', activeAuctionsController.getAuction);
 
 module.exports = router;

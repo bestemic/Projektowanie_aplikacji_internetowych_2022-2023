@@ -1,17 +1,19 @@
 const newAuctionService = require('../services/newAuctionService')
 
-const getIndex = (req, res, data) => {
-    res.render('newAuctionIndex', {
-        data: data || {}
+const getAuction = (req, res) => {
+    res.render('newAuction', {
+        info: {}
     });
 };
 
 const postAuction = async (req, res) => {
-    const data = await newAuctionService.createAuction(req.body);
-    getIndex(req, res, data); // TODO
+    const info = await newAuctionService.createAuction(req.body);
+    res.render('newAuction', {
+        info: info
+    });
 };
 
 module.exports = {
-    getIndex,
+    getAuction,
     postAuction
 }
