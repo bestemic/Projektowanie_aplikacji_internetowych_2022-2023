@@ -3,34 +3,38 @@
 <div class="container">
     <div class="container">
         <h2 class="text-center mt-5 mb-3">Szczegóły przetargu</h2>
-        <div class="card">
-            <div class="card-header text-center text-white bg-dark">
-                <h3 class="card-title mb-0"><%= auction.name %></h3>
-            </div>
-            <div class="card-body text-center">
-                <div class="row">
-                    <div class="col">
-                        <h5><b>Instytucja zamawiająca</b></h5>
-                        <p><%= auction.purchaser %></p>
-                        <hr class="bg-dark border-2 border-top border-dark">
+        <% if(auction.id){ %>
+            <div class="card">
+                <div class="card-header text-center text-white bg-dark">
+                    <h3 class="card-title mb-0"><%= auction.name %></h3>
+                </div>
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col">
+                            <h5><b>Instytucja zamawiająca</b></h5>
+                            <p><%= auction.purchaser %></p>
+                            <hr class="bg-dark border-2 border-top border-dark">
 
-                        <h5><b>Opis</b></h5>
-                        <p class="text-start"><%= auction.description %></p>
-                        <hr class="bg-dark border-2 border-top border-dark">
+                            <h5><b>Opis</b></h5>
+                            <p class="text-start"><%= auction.description %></p>
+                            <hr class="bg-dark border-2 border-top border-dark">
 
-                        <h5><b>Data rozpoczęcia</b></h5>
-                        <p><%= new Date(auction.start).toLocaleString() %></p>
-                        <hr class="bg-dark border-2 border-top border-dark">
+                            <h5><b>Data rozpoczęcia</b></h5>
+                            <p><%= new Date(auction.start).toLocaleString() %></p>
+                            <hr class="bg-dark border-2 border-top border-dark">
 
-                        <h5><b>Data zakończenia</b></h5>
-                        <p><%= new Date(auction.end).toLocaleString() %></p>
-                    </div>
-                    <div class="col border-start border-3">
-                        <!-- TODO form and styles for data -->
+                            <h5><b>Data zakończenia</b></h5>
+                            <p><%= new Date(auction.end).toLocaleString() %></p>
+                        </div>
+                        <div class="col border-start border-3">
+                            <!-- TODO form and styles for data -->
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <% } else { %>
+            <h4 class="text-center mt-5">Przetarg został zakończony lub nie istnieje</h4>
+        <% } %>
     </div>
 </div>
 
