@@ -53,8 +53,28 @@ const findActiveAuctionById = async (id) => {
         });
 };
 
+const findAllFinished = () => {
+    const now = new Date();
+    return Auction
+        .findAll({
+            where: {
+                end: {
+                    [Op.lte]: now
+                }
+            }
+        })
+        .then(data => {
+            return data.map((auction) => auction.dataValues);
+        })
+        .catch(err => {
+            console.error('Failed to get all finished ' + err.message);
+            return [];
+        });
+};
+
 module.exports = {
     create,
     findAllActive,
-    findActiveAuctionById
+    findActiveAuctionById,
+    findAllFinished
 }

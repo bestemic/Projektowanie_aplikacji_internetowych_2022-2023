@@ -15,7 +15,6 @@ const getAllActive = async () => {
 
 const getActiveAuction = async (id) => {
     const auction = await daoAuction.findActiveAuctionById(id);
-    console.log(auction)
     const now = new Date();
 
     if (!auction.id) {

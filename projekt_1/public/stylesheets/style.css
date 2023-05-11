@@ -11,3 +11,8 @@ table a:hover {
     text-decoration: underline;
     color: black;
 }
+
+a.btn-sm:hover {
+    text-decoration: none;
+    color: gray;
+}
