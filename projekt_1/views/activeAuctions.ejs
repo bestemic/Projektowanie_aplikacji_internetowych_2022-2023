@@ -28,7 +28,7 @@
                                 <td class="text-center"><%= new Date(auctions[i].start).toLocaleString() %></td>
                                 <td class="text-center"><%= new Date(auctions[i].end).toLocaleString() %></td>
                                 <td class="text-center"><%= auctions[i].isStarted ? 'AKTYWNY' : 'NIEAKTYWNY' %></td>
-                                <td class="text-center"><a class="btn-dark btn-sm" href="/auctions/finished/<%= auctions[i].id %>" role="button">Szczegóły</a></td>
+                                <td class="text-center"><a class="btn-dark btn-sm" href="/auctions/active/<%= auctions[i].id %>" role="button">Szczegóły</a></td>
                             </tr>
                         <% } %>
                     </tbody>
