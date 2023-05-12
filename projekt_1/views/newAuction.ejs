@@ -1,0 +1,82 @@
+<%- include('inc/header'); -%>
+
+<div class="container">
+    <h2 class="text-center mt-5 mb-3">Stwórz przetarg</h2>
+
+    <% if(info.success){ %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <a href="/auctions/active/<%= info.success %>" class="alert-link">Przetarg</a> został pomyślnie utworzony.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+
+    <% if(info.error){ %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Przetarg nie został utworzony.<br>
+            <%= info.error %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post" action="/auctions/new" class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label class="form-label" for="name">Przedmiot przetargu</label>
+                    <input type="text" class="form-control" id="name" name="name"
+                           placeholder="Wprowadź nazwę przetargu" required>
+                    <div class="invalid-feedback">
+                        To pole jest wymagane.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="purchaser">Instytucja zamawiająca</label>
+                    <input type="text" class="form-control" id="purchaser" name="purchaser"
+                           placeholder="Wprowadź instytucję zamawiającą" required>
+                    <div class="invalid-feedback">
+                        To pole jest wymagane.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Opis</label>
+                    <textarea class="form-control" id="description" name="description" rows="2"
+                              placeholder="Wprowadź opis" required></textarea>
+                    <div class="invalid-feedback">
+                        To pole jest wymagane.
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label" for="start">Data i godzina rozpoczęcia</label>
+                            <input type="datetime-local" class="form-control" id="start" name="start" required>
+                            <div class="invalid-feedback">
+                                To pole jest wymagane.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="form-label" for="end">Data i godzina zakończenia</label>
+                            <input type="datetime-local" class="form-control" id="end" name="end" required>
+                            <div class="invalid-feedback">
+                                To pole jest wymagane.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="cost">Maksymalny koszt realizacji przetargu</label>
+                    <input type="number" class="form-control" id="cost" name="cost" min=0 step="any"
+                           placeholder="Wprowadź cenę" required>
+                    <div class="invalid-feedback">
+                        To pole jest wymagane i musi przyjmować liczby większe bądź równe 0.
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-outline-primary mb-3">Stwórz</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('inc/footer'); -%>
