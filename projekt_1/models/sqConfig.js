@@ -20,6 +20,10 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.auction = require("./auction.js")(sequelize, Sequelize);
+db.offer = require("./offer.js")(sequelize, Sequelize);
+
+db.auction.hasMany(db.offer);
+db.offer.belongsTo(db.auction);
 
 db.sequelize.sync({force: false})
     .then(() => {

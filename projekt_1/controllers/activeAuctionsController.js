@@ -10,7 +10,8 @@ const getAuctions = async (req, res) => {
 const getAuction = async (req, res) => {
     const auction = await activeAuctionService.getActiveAuction(req.params.id);
     res.render('activeAuction', {
-        auction: auction
+        auction: auction,
+        info: {success: req.query.success || ''}
     });
 };
 
