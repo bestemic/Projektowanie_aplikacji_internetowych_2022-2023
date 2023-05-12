@@ -79,27 +79,4 @@
     </div>
 </div>
 
-<script>
-    const dt = new Date();
-    const dateControl = document.querySelectorAll('input[type="datetime-local"]');
-    dateControl.forEach(element => {
-        element.min = dt.toISOString().substring(0, 16);
-    });
-</script>
-
-<script>
-    const forms = document.querySelectorAll('.needs-validation');
-
-    Array.prototype.slice.call(forms)
-        .forEach(form => {
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-</script>
-
 <%- include('inc/footer'); -%>
