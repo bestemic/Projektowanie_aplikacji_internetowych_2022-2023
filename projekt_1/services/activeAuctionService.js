@@ -18,7 +18,7 @@ const getActiveAuction = async (id) => {
     const now = new Date();
 
     if (!auction.id) {
-        return {}
+        return {};
     } else {
         return {
             id: auction.id,

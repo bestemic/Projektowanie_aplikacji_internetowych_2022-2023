@@ -72,9 +72,30 @@ const findAllFinished = () => {
         });
 };
 
+const findFinishedAuctionById = async (id) => {
+    const now = new Date();
+    return Auction
+        .findOne({
+            where: {
+                id: id,
+                end: {
+                    [Op.lte]: now
+                }
+            }
+        })
+        .then(data => {
+            return data ? data.dataValues : {};
+        })
+        .catch(err => {
+            console.error('Failed to get finished auction by id' + err.message);
+            return {};
+        });
+};
+
 module.exports = {
     create,
     findAllActive,
     findActiveAuctionById,
-    findAllFinished
+    findAllFinished,
+    findFinishedAuctionById
 }

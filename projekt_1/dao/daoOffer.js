@@ -13,6 +13,26 @@ const create = (offer) => {
         });
 };
 
+const findAllOffersForAuction = (auctionId) => {
+    return Offer
+        .findAll({
+            where: {
+                auctionId: auctionId
+            },
+            order: [
+                ["value", "ASC"]
+            ]
+        })
+        .then(data => {
+            return data.map((offer) => offer.dataValues);
+        })
+        .catch(err => {
+            console.error('Failed to get all offers for auction ' + err.message);
+            return [];
+        });
+};
+
 module.exports = {
-    create
+    create,
+    findAllOffersForAuction
 }

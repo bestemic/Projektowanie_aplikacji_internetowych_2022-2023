@@ -7,6 +7,14 @@ const getAuctions = async (req, res) => {
     });
 };
 
+const getAuction = async (req, res) => {
+    const finishedAuction = await finishedAuctionService.getFinishedAuction(req.params.id);
+    res.render('finishedAuction', {
+        auction: finishedAuction
+    });
+};
+
 module.exports = {
-    getAuctions
+    getAuctions,
+    getAuction
 }

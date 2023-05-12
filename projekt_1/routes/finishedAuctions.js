@@ -5,4 +5,6 @@ const finishedAuctionsController = require('../controllers/finishedAuctionsContr
 
 router.get('/', finishedAuctionsController.getAuctions);
 
+router.get('/:id', finishedAuctionsController.getAuction);
+
 module.exports = router;
