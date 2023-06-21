@@ -5,7 +5,7 @@ function App() {
     return (
         <>
             <div>
-                <h1 className="text-3xl font-bold underline">Quiz Master</h1>
+                <h1 className="text-3xl font-bold underline">QuizyEasy</h1>
             </div>
         </>
     )
