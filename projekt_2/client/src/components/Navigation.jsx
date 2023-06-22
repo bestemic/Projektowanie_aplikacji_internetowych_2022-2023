@@ -14,7 +14,7 @@ const Navigation = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/categories" className="text-white hover:text-purple-300 transition duration-300">
+                            <Link to="/kategorie" className="text-white hover:text-purple-300 transition duration-300">
                                 Kategorie
                             </Link>
                         </li>

@@ -4,7 +4,11 @@ const Category = db.category;
 
 const findAllCategories = () => {
     return Category
-        .findAll()
+        .findAll({
+            order: [
+                ["name", "ASC"]
+            ]
+        })
         .then(data => {
             return data;
         })
