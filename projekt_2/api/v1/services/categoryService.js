@@ -3,7 +3,7 @@ const ServiceError = require("../errorHandlers/ServiceError");
 
 const getAllCategories = async () => {
     return await daoCategory.findAllCategories();
-}
+};
 
 const createCategory = async (category) => {
     if (!category.name) {
@@ -20,9 +20,14 @@ const createCategory = async (category) => {
     }
 
     return await daoCategory.createCategory(category);
-}
+};
+
+const getCategory = async (id) => {
+    return await daoCategory.findCategoryById(id);
+};
 
 module.exports = {
     getAllCategories,
-    createCategory
+    createCategory,
+    getCategory
 }

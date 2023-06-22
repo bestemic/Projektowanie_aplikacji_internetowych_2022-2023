@@ -29,7 +29,7 @@ const Categories = () => {
             })
             .catch(() => {
                 toast.error('Wystąpił błąd podczas pobierania kategorii!', {
-                    toastId: Math.random(),
+                    toastId: 'fetchCategories',
                 });
             });
     };
@@ -50,15 +50,20 @@ const Categories = () => {
                         });
                     })
                     .catch(error => {
-                        console.log(error.response.status);
-                        if (error.response.status === 409 || error.response.status === 400) {
-                            toast.error(error.response.data.message, {
-                                toastId: Math.random(),
-                            });
-                        } else {
+                        if (!error.response) {
                             toast.error('Nie udało się utworzyć kategorii!', {
                                 toastId: Math.random(),
                             });
+                        } else {
+                            if (error.response.status === 409 || error.response.status === 400) {
+                                toast.error(error.response.data.message, {
+                                    toastId: Math.random(),
+                                });
+                            } else {
+                                toast.error('Nie udało się utworzyć kategorii!', {
+                                    toastId: Math.random(),
+                                });
+                            }
                         }
                     });
             })
@@ -82,7 +87,7 @@ const Categories = () => {
 
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-8 flex justify-center">Kategorie</h2>
+            <h2 className="text-3xl font-bold mb-8 flex justify-center">Kategorie</h2>
 
             <form onSubmit={handleCreateCategory} className="mb-4">
                 <div className="flex justify-center">

@@ -43,8 +43,20 @@ const findCategoryByName = (name) => {
         });
 };
 
+const findCategoryById = (id) => {
+    return Category
+        .findByPk(id)
+        .then(data => {
+            return data;
+        })
+        .catch(err => {
+            throw new ServiceError('Database error ' + err.message, 500);
+        });
+};
+
 module.exports = {
     findAllCategories,
     createCategory,
-    findCategoryByName
+    findCategoryByName,
+    findCategoryById
 }

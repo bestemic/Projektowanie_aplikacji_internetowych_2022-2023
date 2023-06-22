@@ -3,6 +3,7 @@ import Navigation from "./components/Navigation.jsx";
 import {Route, Routes} from "react-router-dom";
 import Categories from "./components/Categories.jsx";
 import {ToastContainer} from "react-toastify";
+import Category from "./components/Category.jsx";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Route index element={<MainPage/>}/>
                     <Route path="kategorie">
                         <Route index element={<Categories/>}/>
+                        <Route path=":id" element={<Category/>}/>
                     </Route>
                     <Route path="quizy">
                         <Route index element={<MainPage/>}/>
@@ -21,7 +23,6 @@ function App() {
                     <Route path="*" element={<div>Nie znaleziono strony</div>}/>
                 </Route>
             </Routes>
-
         </div>
     )
 }
