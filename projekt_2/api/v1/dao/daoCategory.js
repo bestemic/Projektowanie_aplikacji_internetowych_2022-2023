@@ -1,6 +1,46 @@
 const db = require("../../../models/sqConfig");
+const ServiceError = require("../errorHandlers/ServiceError");
 const Category = db.category;
-const Op = db.Sequelize.Op;
 
+const findAllCategories = () => {
+    return Category
+        .findAll()
+        .then(data => {
+            return data;
+        })
+        .catch(err => {
+            throw new ServiceError('Database error ' + err.message, 500);
+        });
+};
 
-module.exports = {}
+const createCategory = (category) => {
+    return Category
+        .create(category)
+        .then(data => {
+            return data;
+        })
+        .catch(err => {
+            throw new ServiceError('Database error ' + err.message, 500);
+        });
+};
+
+const findCategoryByName = (name) => {
+    return Category
+        .findOne({
+            where: {
+                name: name
+            }
+        })
+        .then(data => {
+            return data;
+        })
+        .catch(err => {
+            throw new ServiceError('Database error ' + err.message, 500);
+        });
+};
+
+module.exports = {
+    findAllCategories,
+    createCategory,
+    findCategoryByName
+}

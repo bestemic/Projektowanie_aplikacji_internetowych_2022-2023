@@ -27,8 +27,8 @@ const Navigation = () => {
                 </div>
             </nav>
 
-            <div className="p-8 flex flex-col items-center w-90">
-                <div className="container p-8 bg-gray-100 rounded-xl">
+            <div className="p-10 flex flex-col items-center w-90">
+                <div className="container p-8 bg-gray-200 rounded-xl min-h-[80vh]">
                     <Outlet/>
                 </div>
             </div>
