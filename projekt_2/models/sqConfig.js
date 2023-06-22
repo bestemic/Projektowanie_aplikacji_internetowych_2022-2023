@@ -23,6 +23,13 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.category = require("./category.js")(sequelize, Sequelize);
+db.question = require("./question.js")(sequelize, Sequelize);
+db.answer = require("./answer.js")(sequelize, Sequelize);
+
+db.category.hasMany(db.question);
+db.question.belongsTo(db.category);
+db.question.hasMany(db.answer);
+db.answer.belongsTo(db.question);
 
 db.sequelize.sync({force: false})
     .then(() => {

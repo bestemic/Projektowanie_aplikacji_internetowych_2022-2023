@@ -25,7 +25,7 @@ const createCategory = async (req, res) => {
 
 const getCategory = async (req, res) => {
     try {
-        const category = await categoryService.getCategory(req.params.id);
+        const category = await categoryService.getCategory(req.params.categoryId);
         if (category) {
             res.status(200).json({status: 200, data: category, message: "Successfully retrieved category"});
         } else {
