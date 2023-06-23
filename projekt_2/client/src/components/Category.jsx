@@ -10,10 +10,10 @@ const Category = () => {
     const [questions, setQuestions] = useState([])
     const [isLoading, setIsLoading] = useState(false);
 
-    const {id} = useParams();
+    const {categoryId} = useParams();
 
     useEffect(() => {
-        api.get(`/categories/${id}`)
+        api.get(`/categories/${categoryId}`)
             .then(response => {
                 setCategoryName(response.data.data.name);
             })
@@ -26,11 +26,11 @@ const Category = () => {
                     });
                 }
             });
-    }, [id]);
+    }, [categoryId]);
 
     useEffect(() => {
         setIsLoading(true);
-        api.get(`/categories/${id}/questions`)
+        api.get(`/categories/${categoryId}/questions`)
             .then(response => {
                 setQuestions(response.data.data);
             })
@@ -42,7 +42,7 @@ const Category = () => {
             .finally(() => {
                 setIsLoading(false);
             })
-    }, [id]);
+    }, [categoryId]);
 
     return (
         <div>

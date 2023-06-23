@@ -61,7 +61,26 @@ const createQuestion = async (categoryId, question) => {
     return await daoQuestion.createQuestion(question);
 };
 
+const getQuiz = async (categoryId, limit) => {
+    const category = await daoCategory.findCategoryById(categoryId);
+    if (!category) {
+        throw new ServiceError('Nie znaleziono kategorii.', 404);
+    }
+
+    if (limit < 1) {
+        throw new ServiceError('Limit nie może być ujemny.', 400);
+    }
+
+    return await daoQuestion.findRandomQuestionsId(categoryId, parseInt(limit));
+};
+
+const getQuestion = async (questionId) => {
+    return await daoQuestion.findQuestionWithoutCorrectById(questionId);
+};
+
 module.exports = {
     getAllQuestions,
     createQuestion,
+    getQuiz,
+    getQuestion
 }

@@ -26,8 +26,13 @@ const getCategory = async (id) => {
     return await daoCategory.findCategoryById(id);
 };
 
+const getQuizCategories = async () => {
+    return await daoCategory.findAllCategoriesContainingQuestion();
+};
+
 module.exports = {
     getAllCategories,
     createCategory,
-    getCategory
+    getCategory,
+    getQuizCategories
 }

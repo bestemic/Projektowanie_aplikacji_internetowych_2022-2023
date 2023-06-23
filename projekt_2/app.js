@@ -13,6 +13,8 @@ const cors = require('cors');
 
 const indexRouter = require('./api/v1/routes/index');
 const categoriesRouter = require('./api/v1/routes/categories');
+const {questionsRouter} = require('./api/v1/routes/questions');
+
 
 const app = express();
 
@@ -30,7 +32,7 @@ app.use('/', indexRouter);
 // API v1 path
 const api_path_v1 = '/api/v1';
 
-// Categories API v1
 app.use(api_path_v1 + '/categories', categoriesRouter);
+app.use(api_path_v1 + '/questions', questionsRouter);
 
 module.exports = app;

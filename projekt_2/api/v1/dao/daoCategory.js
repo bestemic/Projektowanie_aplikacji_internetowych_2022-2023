@@ -1,6 +1,7 @@
 const db = require("../../../models/sqConfig");
 const ServiceError = require("../errorHandlers/ServiceError");
 const Category = db.category;
+const Sequelize = db.Sequelize;
 
 const findAllCategories = () => {
     return Category
@@ -54,9 +55,28 @@ const findCategoryById = (id) => {
         });
 };
 
+const findAllCategoriesContainingQuestion = () => {
+    return Category
+        .findAll({
+            where: {
+                id: {[Sequelize.Op.in]: Sequelize.literal(`(SELECT DISTINCT categoryId FROM Questions)`)}
+            },
+            order: [
+                ["name", "ASC"]
+            ]
+        })
+        .then(data => {
+            return data;
+        })
+        .catch(err => {
+            throw new ServiceError('Database error ' + err.message, 500);
+        });
+};
+
 module.exports = {
     findAllCategories,
     createCategory,
     findCategoryByName,
-    findCategoryById
+    findCategoryById,
+    findAllCategoriesContainingQuestion
 }

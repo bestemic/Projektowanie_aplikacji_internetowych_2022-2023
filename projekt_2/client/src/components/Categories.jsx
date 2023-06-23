@@ -107,7 +107,7 @@ const Categories = () => {
                 {error && <div className="text-red-500 text-lg mt-2 flex justify-center">{error}</div>}
             </form>
 
-            <CategoriesCard categories={categories}/>
+            <CategoriesCard categories={categories} path={'kategorie'}/>
         </div>
     );
 };

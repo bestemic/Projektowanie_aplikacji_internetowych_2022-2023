@@ -38,8 +38,24 @@ const getCategory = async (req, res) => {
     }
 };
 
+const getQuizCategories = async (req, res) => {
+    try {
+        const allQuizCategories = await categoryService.getQuizCategories();
+        res.status(200).json({
+            status: 200,
+            data: allQuizCategories,
+            message: "Pomyślnie pobrano wszystkie dostępne kategorie quizów."
+        });
+    } catch (err) {
+        if (err instanceof ServiceError) {
+            res.status(err.code).json({status: err.code, message: err.message});
+        }
+    }
+};
+
 module.exports = {
     getCategories,
     createCategory,
-    getCategory
+    getCategory,
+    getQuizCategories
 }

@@ -1,9 +1,17 @@
 const express = require('express');
-const router = express.Router({ mergeParams: true });
+const categoryQuestionRouter = express.Router({mergeParams: true});
+const questionsRouter = express.Router();
 
 const questionsController = require('../controllers/questionController');
 
-router.get('/', questionsController.getQuestions);
-router.post('/', questionsController.createQuestion);
+categoryQuestionRouter.get('/', questionsController.getQuestions);
+categoryQuestionRouter.post('/', questionsController.createQuestion);
+categoryQuestionRouter.get('/quiz', questionsController.getQuiz);
 
-module.exports = router;
+questionsRouter.get('/:questionId', questionsController.getQuestion);
+questionsRouter.get('/:questionId/correctAnswer', questionsController.getCorrectAnswers);
+
+module.exports = {
+    categoryQuestionRouter,
+    questionsRouter
+};

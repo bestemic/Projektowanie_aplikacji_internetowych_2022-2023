@@ -1,22 +1,10 @@
 import PropTypes from "prop-types";
 import {CheckIcon} from '@heroicons/react/20/solid';
+import getAnswerLabel from "../utils.js";
 
 const CategoryQuestions = (props) => {
     const isLoading = props.isLoading;
     const questions = props.questions;
-
-    const getAnswerLabel = (index) => {
-        let label = '';
-        let quotient = Math.floor(index / 26);
-        let remainder = index % 26;
-
-        if (quotient > 0) {
-            label += String.fromCharCode(65 + quotient - 1);
-        }
-        label += String.fromCharCode(65 + remainder);
-
-        return label;
-    };
 
     return (
         <div className="p-8">
@@ -43,7 +31,7 @@ const CategoryQuestions = (props) => {
                                                 answer.isCorrect ? 'bg-green-300' : ''
                                             } border-gray-300 border rounded p-2 flex items-center space-x-2`}
                                         >
-                                            <span className={`${answer.isCorrect ? 'text-green-600 font-bold' : ''}`}>
+                                            <span className={`${answer.isCorrect ? 'text-green-600' : ''}`}>
                                                 {getAnswerLabel(answerIndex)}.
                                             </span>
                                             <span>{answer.content}</span>

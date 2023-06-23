@@ -38,7 +38,44 @@ const createQuestion = (question) => {
         });
 };
 
+const findRandomQuestionsId = (categoryId, limit) => {
+    return Question
+        .findAll({
+            where: {
+                categoryId: categoryId
+            },
+            attributes: ['id'],
+            order: db.sequelize.random(),
+            limit: limit
+        })
+        .then(data => {
+            return data;
+        })
+        .catch(err => {
+            throw new ServiceError('Database error ' + err.message, 500);
+        });
+};
+
+const findQuestionWithoutCorrectById = (id) => {
+    return Question
+        .findByPk(id, {
+            include: [{
+                model: Answer,
+                attributes: ['id', 'content'],
+                as: 'answers'
+            }]
+        })
+        .then(data => {
+            return data;
+        })
+        .catch(err => {
+            throw new ServiceError('Database error ' + err.message, 500);
+        });
+};
+
 module.exports = {
     findAllCategoryQuestions,
-    createQuestion
+    createQuestion,
+    findRandomQuestionsId,
+    findQuestionWithoutCorrectById
 }

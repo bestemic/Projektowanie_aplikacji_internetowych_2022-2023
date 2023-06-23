@@ -19,7 +19,7 @@ const Navigation = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/quizzes" className="text-white hover:text-purple-300 transition duration-300">
+                            <Link to="/quizy" className="text-white hover:text-purple-300 transition duration-300">
                                 Quizy
                             </Link>
                         </li>
