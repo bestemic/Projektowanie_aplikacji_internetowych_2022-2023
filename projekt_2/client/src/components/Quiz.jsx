@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import api from "../api.js";
 import {toast} from "react-toastify";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import getAnswerLabel from "../utils.js";
 
 const Quiz = () => {
@@ -11,12 +11,17 @@ const Quiz = () => {
     const [notFound, setNotFound] = useState(false);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState([]);
+    const [correctAnswers, setCorrectAnswers] = useState([]);
+    const [incorrectAnswers, setIncorrectAnswers] = useState([]);
     const [showCheckButton, setShowCheckButton] = useState(true);
     const [showNextButton, setShowNextButton] = useState(false);
+    const [showEndButton, setShowEndButton] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const [disableSelection, setDisableSelection] = useState(false);
+    const [counter, setCounter] = useState(0);
 
     const {categoryId} = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         api.get(`/categories/${categoryId}`)
@@ -42,11 +47,10 @@ const Quiz = () => {
                     setNotFound(true);
                 } else {
                     setQuestionsId(response.data.data);
-                    fetchQuestion(response.data.data[currentQuestionIndex].id)
+                    fetchQuestion(response.data.data[currentQuestionIndex])
                 }
             })
-            .catch((err) => {
-                console.log(err)
+            .catch(() => {
                 toast.error('Wystąpił błąd podczas pobierania quizu!', {
                     toastId: 'fetchQuizIds',
                 });
@@ -67,11 +71,13 @@ const Quiz = () => {
 
     const handleNextQuestion = () => {
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-        fetchQuestion(questionsIds[currentQuestionIndex + 1].id);
+        fetchQuestion(questionsIds[currentQuestionIndex + 1]);
         setSelectedAnswers([]);
         setShowCheckButton(true);
         setShowNextButton(false);
         setDisableSelection(false);
+        setCorrectAnswers([]);
+        setIncorrectAnswers([]);
     };
 
     const handleAnswerSelection = (answerId) => {
@@ -100,12 +106,28 @@ const Quiz = () => {
         }
         setShowErrorMessage(false);
 
-        // TODO
+        api.get(`/questions/${questionsIds[currentQuestionIndex]}/correctAnswers`)
+            .then(response => {
+                const answers = response.data.data;
+                setCorrectAnswers(answers);
+                setIncorrectAnswers(selectedAnswers.filter(answer => !answers.includes(answer)));
+
+                if (answers.length === selectedAnswers.length && answers.every(answer => selectedAnswers.includes(answer))) {
+                    setCounter((prevCount) => prevCount + 1)
+                }
+            })
+            .catch(() => {
+                toast.error('Wystąpił błąd podczas pobierania odpowiedzi!', {
+                    toastId: 'fetchAnswers',
+                });
+            });
 
         setDisableSelection(true);
         setShowCheckButton(false);
         if (currentQuestionIndex !== questionsIds.length - 1) {
             setShowNextButton(true);
+        } else {
+            setShowEndButton(true);
         }
     };
 
@@ -135,6 +157,10 @@ const Quiz = () => {
                                         key={answer.id}
                                         className={`border-gray-300 border rounded p-2 flex items-center space-x-2 ${
                                             selectedAnswers.includes(answer.id) ? 'bg-orange-400' : ''
+                                        } ${
+                                            correctAnswers.includes(answer.id) ? 'bg-green-500' : ''
+                                        } ${
+                                            incorrectAnswers.includes(answer.id) ? 'bg-red-500' : ''
                                         }`}
                                         onClick={() => handleAnswerSelection(answer.id)}
                                     >
@@ -166,23 +192,36 @@ const Quiz = () => {
                         </div>
                     </div>
 
-                    <div className="flex justify-end mt-4">
-                        {showCheckButton && (
-                            <button
-                                className="px-4 py-2 bg-purple-700 hover:bg-purple-900 text-white rounded"
-                                onClick={handleCheckAnswer}
-                            >
-                                Sprawdź odpowiedź
-                            </button>
-                        )}
-                        {showNextButton && (
-                            <button
-                                className="px-4 py-2 bg-purple-700 hover:bg-purple-900 text-white rounded"
-                                onClick={handleNextQuestion}
-                            >
-                                Następne pytanie
-                            </button>
-                        )}
+                    <div className="flex mt-4 justify-between">
+                        <h2 className="text-3xl py-2 font-bold justify-start text-purple-700">
+                            {counter} / {questionsIds.length}
+                        </h2>
+                        <div className="flex">
+                            {showCheckButton && (
+                                <button
+                                    className="px-4 py-2 bg-purple-700 hover:bg-purple-900 text-white rounded"
+                                    onClick={handleCheckAnswer}
+                                >
+                                    Sprawdź odpowiedź
+                                </button>
+                            )}
+                            {showNextButton && (
+                                <button
+                                    className="px-4 py-2 bg-purple-700 hover:bg-purple-900 text-white rounded"
+                                    onClick={handleNextQuestion}
+                                >
+                                    Następne pytanie
+                                </button>
+                            )}
+                            {showEndButton && (
+                                <button
+                                    className="px-4 py-2 bg-purple-700 hover:bg-purple-900 text-white rounded"
+                                    onClick={() => navigate('/quizy')}
+                                >
+                                    Zakończ quiz
+                                </button>
+                            )}
+                        </div>
                     </div>
                 </div>
             )}

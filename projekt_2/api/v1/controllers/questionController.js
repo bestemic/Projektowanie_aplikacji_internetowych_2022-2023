@@ -1,6 +1,5 @@
 const questionService = require('../services/questionService');
 const ServiceError = require('../errorHandlers/ServiceError');
-const categoryService = require("../services/categoryService");
 
 const getQuestions = async (req, res) => {
     console.log(req.params)
@@ -52,7 +51,14 @@ const getQuestion = async (req, res) => {
 }
 
 const getCorrectAnswers = async (req, res) => {
-
+    try {
+        const correctAnswers = await questionService.getCorrectAnswers(req.params.questionId);
+        res.status(200).json({status: 200, data: correctAnswers, message: "Pomyślnie pobrano odpowiedzi."});
+    } catch (err) {
+        if (err instanceof ServiceError) {
+            res.status(err.code).json({status: err.code, message: err.message});
+        }
+    }
 }
 
 module.exports = {

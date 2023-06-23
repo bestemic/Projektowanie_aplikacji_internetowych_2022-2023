@@ -62,7 +62,7 @@ const findQuestionWithoutCorrectById = (id) => {
             include: [{
                 model: Answer,
                 attributes: ['id', 'content'],
-                as: 'answers'
+                as: 'answers',
             }]
         })
         .then(data => {
@@ -73,9 +73,27 @@ const findQuestionWithoutCorrectById = (id) => {
         });
 };
 
+const getCorrectAnswersForQuestion = (id) => {
+    return Answer
+        .findAll({
+            attributes: ['id'],
+            where: {
+                questionId: id,
+                isCorrect: true
+            }
+        })
+        .then(data => {
+            return data;
+        })
+        .catch(err => {
+            throw new ServiceError('Database error: ' + err.message, 500);
+        });
+};
+
 module.exports = {
     findAllCategoryQuestions,
     createQuestion,
     findRandomQuestionsId,
-    findQuestionWithoutCorrectById
+    findQuestionWithoutCorrectById,
+    getCorrectAnswersForQuestion
 }

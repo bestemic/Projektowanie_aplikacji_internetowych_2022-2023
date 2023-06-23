@@ -9,7 +9,7 @@ categoryQuestionRouter.post('/', questionsController.createQuestion);
 categoryQuestionRouter.get('/quiz', questionsController.getQuiz);
 
 questionsRouter.get('/:questionId', questionsController.getQuestion);
-questionsRouter.get('/:questionId/correctAnswer', questionsController.getCorrectAnswers);
+questionsRouter.get('/:questionId/correctAnswers', questionsController.getCorrectAnswers);
 
 module.exports = {
     categoryQuestionRouter,

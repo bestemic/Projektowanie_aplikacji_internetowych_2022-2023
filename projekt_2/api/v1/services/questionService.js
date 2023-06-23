@@ -1,13 +1,13 @@
-const daoCategory = require('../dao/daoCategory');
 const daoQuestion = require('../dao/daoQuestion');
 const ServiceError = require("../errorHandlers/ServiceError");
+const categoryService = require("../services/categoryService");
 
 const getAllQuestions = async (categoryId) => {
     return await daoQuestion.findAllCategoryQuestions(categoryId);
 };
 
 const createQuestion = async (categoryId, question) => {
-    const category = await daoCategory.findCategoryById(categoryId);
+    const category = await categoryService.getCategory(categoryId);
     if (!category) {
         throw new ServiceError('Nie znaleziono kategorii.', 404);
     }
@@ -62,7 +62,7 @@ const createQuestion = async (categoryId, question) => {
 };
 
 const getQuiz = async (categoryId, limit) => {
-    const category = await daoCategory.findCategoryById(categoryId);
+    const category = await categoryService.getCategory(categoryId);
     if (!category) {
         throw new ServiceError('Nie znaleziono kategorii.', 404);
     }
@@ -71,16 +71,27 @@ const getQuiz = async (categoryId, limit) => {
         throw new ServiceError('Limit nie może być ujemny.', 400);
     }
 
-    return await daoQuestion.findRandomQuestionsId(categoryId, parseInt(limit));
+    const questionsIds = await daoQuestion.findRandomQuestionsId(categoryId, parseInt(limit));
+    return questionsIds.map(question => question.id);
 };
 
 const getQuestion = async (questionId) => {
-    return await daoQuestion.findQuestionWithoutCorrectById(questionId);
+    const question = await daoQuestion.findQuestionWithoutCorrectById(questionId);
+    question.answers = question.answers.sort(() => {
+        return Math.random() - 0.5;
+    })
+    return question;
+};
+
+const getCorrectAnswers = async (questionId) => {
+    const correctAnswers = await daoQuestion.getCorrectAnswersForQuestion(questionId);
+    return correctAnswers.map(answer => answer.id);
 };
 
 module.exports = {
     getAllQuestions,
     createQuestion,
     getQuiz,
-    getQuestion
+    getQuestion,
+    getCorrectAnswers
 }
