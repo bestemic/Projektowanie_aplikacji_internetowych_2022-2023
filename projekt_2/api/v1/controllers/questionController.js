@@ -5,7 +5,7 @@ const getQuestions = async (req, res) => {
     console.log(req.params)
     try {
         const allQuestions = await questionService.getAllQuestions(req.params.categoryId);
-        res.status(200).json({status: 200, data: allQuestions, message: "Successfully retrieved questions"});
+        res.status(200).json({status: 200, data: allQuestions, message: "Pomyślnie pobrano wszystkie pytania"});
     } catch (err) {
         if (err instanceof ServiceError) {
             res.status(err.code).json({status: err.code, message: err.message});
@@ -16,7 +16,7 @@ const getQuestions = async (req, res) => {
 const createQuestion = async (req, res) => {
     try {
         const question = await questionService.createQuestion(req.params.categoryId, req.body);
-        res.status(201).json({status: 201, data: question, message: "Successfully created question"});
+        res.status(201).json({status: 201, data: question, message: "Pomyślnie stworzono pytanie"});
     } catch (err) {
         if (err instanceof ServiceError) {
             res.status(err.code).json({status: err.code, message: err.message});

@@ -2,10 +2,13 @@ import {useEffect, useState} from "react";
 import api from "../api.js";
 import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
+import CategoryQuestions from "./CategoryQuestions.jsx";
 
 const Category = () => {
     const [categoryName, setCategoryName] = useState('');
     const [notFound, setNotFound] = useState(false);
+    const [questions, setQuestions] = useState([])
+    const [isLoading, setIsLoading] = useState(false);
 
     const {id} = useParams();
 
@@ -19,10 +22,26 @@ const Category = () => {
                     setNotFound(true);
                 } else {
                     toast.error('Wystąpił błąd podczas pobierania kategorii!', {
-                        toastId: Math.random(),
+                        toastId: 'fetchCategory',
                     });
                 }
             });
+    }, [id]);
+
+    useEffect(() => {
+        setIsLoading(true);
+        api.get(`/categories/${id}/questions`)
+            .then(response => {
+                setQuestions(response.data.data);
+            })
+            .catch(() => {
+                toast.error('Wystąpił błąd podczas pobierania pytań!', {
+                    toastId: 'fetchQuestions',
+                });
+            })
+            .finally(() => {
+                setIsLoading(false);
+            })
     }, [id]);
 
     return (
@@ -32,6 +51,10 @@ const Category = () => {
                     Kategoria o podanym ID nie istnieje.
                 </p>}
             {categoryName && <h2 className="text-3xl font-bold mt-2 flex justify-center">Kategoria {categoryName}</h2>}
+
+            {/*TODO*/}
+
+            <CategoryQuestions isLoading={isLoading} questions={questions}/>
         </div>
     );
 };

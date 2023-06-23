@@ -28,7 +28,7 @@ db.answer = require("./answer.js")(sequelize, Sequelize);
 
 db.category.hasMany(db.question);
 db.question.belongsTo(db.category);
-db.question.hasMany(db.answer);
+db.question.hasMany(db.answer, {as: 'answers'});
 db.answer.belongsTo(db.question);
 
 db.sequelize.sync({force: false})

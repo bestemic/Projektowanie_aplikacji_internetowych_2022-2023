@@ -4,7 +4,7 @@ const ServiceError = require('../errorHandlers/ServiceError');
 const getCategories = async (req, res) => {
     try {
         const allCategories = await categoryService.getAllCategories();
-        res.status(200).json({status: 200, data: allCategories, message: "Successfully retrieved categories"});
+        res.status(200).json({status: 200, data: allCategories, message: "Pomyślnie pobrano wszystkie kategorie"});
     } catch (err) {
         if (err instanceof ServiceError) {
             res.status(err.code).json({status: err.code, message: err.message});
@@ -15,7 +15,7 @@ const getCategories = async (req, res) => {
 const createCategory = async (req, res) => {
     try {
         const category = await categoryService.createCategory(req.body);
-        res.status(201).json({status: 201, data: category, message: "Successfully created category"});
+        res.status(201).json({status: 201, data: category, message: "Pomyślnie stworzono kategorię"});
     } catch (err) {
         if (err instanceof ServiceError) {
             res.status(err.code).json({status: err.code, message: err.message});
@@ -27,9 +27,9 @@ const getCategory = async (req, res) => {
     try {
         const category = await categoryService.getCategory(req.params.categoryId);
         if (category) {
-            res.status(200).json({status: 200, data: category, message: "Successfully retrieved category"});
+            res.status(200).json({status: 200, data: category, message: "Pomyślnie pobrano kategorię"});
         } else {
-            res.status(404).json({status: 404, message: "Category not found"});
+            res.status(404).json({status: 404, message: "Nie znaleziono kategorii"});
         }
     } catch (err) {
         if (err instanceof ServiceError) {
