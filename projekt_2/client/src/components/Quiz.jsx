@@ -156,7 +156,7 @@ const Quiz = () => {
                                     <li
                                         key={answer.id}
                                         className={`border-gray-300 border rounded p-2 flex items-center space-x-2 ${
-                                            selectedAnswers.includes(answer.id) ? 'bg-orange-400' : ''
+                                            showCheckButton && selectedAnswers.includes(answer.id) ? 'bg-orange-400' : ''
                                         } ${
                                             correctAnswers.includes(answer.id) ? 'bg-green-500' : ''
                                         } ${
