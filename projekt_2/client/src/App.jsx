@@ -10,7 +10,7 @@ import Quiz from "./components/Quiz.jsx";
 function App() {
     return (
         <div className="App">
-            <ToastContainer/>
+            <ToastContainer position="top-left"/>
 
             <Routes>
                 <Route path="/" element={<Navigation/>}>
